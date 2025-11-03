@@ -1,92 +1,85 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name=viewport content="width=device-width, initial-scale=1">
-    <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-    <style>
-        body { margin: 0; padding: 0; }
-        html { height: 100%; cursor: default; }
-        body {
-            font-family: "Roboto", sans-serif; /* Default font */
-            width: 100%; height: 100%;
-            text-align: center;
-            display: table;
-            opacity: 1;
-            animation: fadein 3s forwards;
-        }
-        h2 {
-            font-weight: 300;
-            margin-bottom: 25px;
-        }
-        img {
-            width: 25%; /* Image width */
-            border: 0; /* For IE */
-            /* Aspect ratio of image, gives initial dimension to prevent text moving down once image is loaded */
-            /* When changing logo, change this also */
-            aspect-ratio: 125 / 50;
-        }
-        #main {
-            vertical-align: middle;
-            display: table-cell;
-        }
-        /* Progress bar */
-        #progress {
-            width: 45%; /* Bar width */
-            margin: 0 auto;
-            border-radius: 10px; /* Roundness */
-            background-color: #a8a8a8; /* Background colour */
-            padding: 7px 5px;
-            /* border: 5px solid #a8a8a8; Border */
-        }
-        #fill {
-            padding: 2px 0;
-            background-color: #00b98b; /* Fill colour */
-            width: 35%; /* Bar percentage, change text below also */
-            border-radius: 25px; /* Roundness */
-            animation: proanimate 2s;
-        }
-        #barpercent h3 {
-            color: white; /* Bar percentage text colour */
-            margin: 0; padding: 0;
-            opacity: 1;
-            animation: fadein 3s forwards;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HappyCakeDay — Coming Soon</title>
+  <style>
+    :root{
+      --bg1:#fff3ea;
+      --bg2:#ffe6f2;
+      --fg:#2b2b33;
+      --accent:#ff3d7c;
+      --accent-2:#8a5cff;
+      --gold:#ffc93c;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial;
+      color:var(--fg);
+      background: radial-gradient(1000px 800px at 10% 0%, var(--bg1), transparent), radial-gradient(1200px 900px at 90% 100%, var(--bg2), white);
+      overflow:hidden;
+    }
+    .wrap{position:relative;height:100%;width:100%}
+    header{
+      position:fixed;left:50%;top:2vh;transform:translateX(-50%);
+      padding:8px 20px;border-radius:16px;box-shadow:0 6px 24px rgba(0,0,0,.08);
+      background:rgba(255,255,255,.75);backdrop-filter:blur(8px);
+      display:flex;align-items:center;gap:12px;z-index:4
+    }
+    .dot{height:10px;width:10px;border-radius:50%;background:var(--accent);box-shadow:14px 0 0 var(--accent-2),28px 0 0 var(--gold)}
+    h1{font-size:clamp(22px,3vw,32px);margin:0;font-weight:700}
 
-        /* Fades in animation */
-        @keyframes fadein  {
-            from { opacity: 0; }
-        }
-        /* Animates bar on page load */
-        @keyframes proanimate {
-            from { width: 0%; }
-        }
+    .notice{
+      position:fixed;left:50%;top:12vh;transform:translateX(-50%);
+      background:rgba(255,255,255,.8);backdrop-filter:blur(8px);
+      border-radius:18px;padding:18px 24px;box-shadow:0 10px 30px rgba(0,0,0,.08);
+      display:flex;gap:10px;align-items:flex-start;max-width:90vw;z-index:3;text-align:left;
+    }
+    .notice strong{display:block;margin-bottom:6px;font-size:17px}
 
-        @media screen and (max-width:600px) {
-            img {
-                width: 60%;
-            }
-            h1 {
-                font-size: 1.3em;
-            }
-            h2 {
-                margin: 1.1em;
-                font-size: 1.1em;
-            }
-            #progress {
-                width: 80%; /* Bar width */
-            }
-        }
-    </style>
-    <title>Coming Soon</title>
+    .playground{position:absolute;inset:0}
+    .cake{position:absolute;width:min(18vmin,160px);aspect-ratio:1/1;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1;filter:drop-shadow(0 14px 24px rgba(0,0,0,.15));cursor:pointer}
+    .shadow{position:absolute;width:28vmin;height:5vmin;max-width:240px;max-height:40px;left:50%;top:calc(50%+13vmin);transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.25),rgba(0,0,0,0));z-index:0;pointer-events:none}
+
+    @keyframes hop{0%{transform:translate(-50%,-50%)scale(1)}40%{transform:translate(-50%,-58%)scale(1.04,.96)}60%{transform:translate(-50%,-60%)scale(.98,1.02)}100%{transform:translate(-50%,-50%)scale(1)}}
+    .cake.hop{animation:hop .8s cubic-bezier(.2,.8,.2,1)}
+    @keyframes shadowSquish{0%{transform:translateX(-50%)scale(1)}50%{transform:translateX(-50%)scale(.85)}100%{transform:translateX(-50%)scale(1)}}
+    .shadow.squish{animation:shadowSquish .8s ease}
+
+    @media(hover:hover){.cake:hover{animation:wiggle .6s ease both}}
+    @keyframes wiggle{0%{transform:translate(-50%,-50%)rotate(0)}25%{transform:translate(-50%,-50%)rotate(-6deg)}50%{transform:translate(-50%,-50%)rotate(5deg)}100%{transform:translate(-50%,-50%)rotate(0)}}
+
+    .footer{
+      position:fixed;left:50%;bottom:3vh;transform:translateX(-50%);
+      display:flex;gap:16px;align-items:center;background:rgba(255,255,255,.7);
+      padding:10px 18px;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.06);
+      font-size:15px;z-index:2
+    }
+    .btn{appearance:none;border:0;border-radius:12px;padding:9px 14px;cursor:pointer;font-weight:600;font-size:14px;letter-spacing:.2px;transition:all .2s ease}
+    #partyBtn{background:var(--accent);color:#fff}
+    #calmBtn{background:var(--fg);color:#fff}
+    .btn:disabled{opacity:.4;cursor:not-allowed}
+
+    .confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:5}
+    .bit{position:absolute;width:8px;height:12px;opacity:.9;will-change:transform,opacity}
+
+    @media(prefers-reduced-motion:reduce){.cake,.shadow,.bit{transition:none!important;animation:none!important}}
+  </style>
 </head>
 <body>
-    <div id="main">
-        <img src="HappyCakeDay2.png" alt="HappyCakeDay.com">
-        <h1>HappyCakeDay.com</h1>
-        <h2>Our Happy Cake Day website is currently under construction :) </h2>
-        <div id="progress"><div id="fill"><div id="barpercent"><h3>55%</h3></div></div></div>
-    </div>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+  <div class="wrap">
+    <header><div class="dot"></div><h1>HappyCakeDay</h1></header>
+    <aside class="notice"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M10.29 3.86c.86-1.54 2.56-1.54 3.42 0l7.52 13.5c.86 1.54-.22 3.64-1.71 3.64H4.48c-1.49 0-2.57-2.1-1.71-3.64l7.52-13.5z" stroke="#000" stroke-opacity=".2" stroke-width="1.5" fill="#fff"/><path d="M12 8v5" stroke="#fb374f" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.2" fill="#fb374f"/></svg><div><strong>Something sweet is baking...</strong><div>This cake loves AI, good deals, and a little mystery. Stay tuned 🎂🤖💸</div></div></aside>
+    <main class="playground" id="playground"><div class="shadow" id="shadow"></div><svg class="cake" id="cake" viewBox="0 0 200 200"><ellipse cx="100" cy="165" rx="72" ry="12" fill="#f1f1f5"/><rect x="44" y="90" width="112" height="56" rx="16" fill="#ffcf8f"/><path d="M44 100h112v12c-10 6-18-6-28 0s-20-6-30 0-20-8-30 0-16-6-24 0v-12z" fill="#ff8fb1"/><rect x="60" y="66" width="80" height="34" rx="12" fill="#ffdcd2"/><g fill="#8a5cff"><rect x="70" y="76" width="6" height="3" rx="1"/><rect x="88" y="82" width="4" height="3" rx="1"/></g><g fill="#ff3d7c"><rect x="120" y="78" width="5" height="3" rx="1"/><rect x="102" y="74" width="6" height="3" rx="1"/></g><circle cx="86" cy="116" r="6" fill="#2b2b33"/><circle cx="124" cy="116" r="6" fill="#2b2b33"/><rect x="96" y="126" width="8" height="4" rx="2" fill="#2b2b33"/><rect x="98" y="52" width="4" height="14" rx="2" fill="#8a5cff"/><path d="M100 42c4 2 4 6 0 10-4-4-4-8 0-10z" fill="#ffc93c"/><ellipse cx="100" cy="50" rx="3" ry="1.2" fill="#fff7c0" opacity=".9"/></svg><div class="confetti" id="confetti"></div></main>
+    <div class="footer"><button class="btn" id="partyBtn">Party Mode</button><button class="btn" id="calmBtn">Calm Mode</button></div>
+  </div>
+  <script>
+    const cake=document.getElementById('cake');const shadow=document.getElementById('shadow');const playground=document.getElementById('playground');const confetti=document.getElementById('confetti');const partyBtn=document.getElementById('partyBtn');const calmBtn=document.getElementById('calmBtn');let partyMode=true;const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));let wanderTimer;function wander(){clearTimeout(wanderTimer);const{width:W,height:H}=playground.getBoundingClientRect();const r=cake.getBoundingClientRect();const cw=r.width;const ch=r.height;const pad=30;const x=clamp(Math.random()*(W-cw-2*pad)+pad,pad,W-cw-pad);const y=clamp(Math.random()*(H-ch-2*pad)+pad,pad,H-ch-pad);cake.style.transition=partyMode?'transform .75s cubic-bezier(.2,.8,.2,1),left .75s ease,top .75s ease':'transform .3s ease,left .3s ease,top .3s ease';shadow.style.transition=partyMode?'left .75s ease,top .75s ease,transform .75s ease':'left .3s ease,top .3s ease,transform .3s ease';const tx=x+cw/2;const ty=y+ch/2;cake.style.left=tx+'px';cake.style.top=ty+'px';shadow.style.left=tx+'px';shadow.style.top=(ty+ch*.72)+'px';cake.classList.remove('hop');void cake.offsetWidth;cake.classList.add('hop');shadow.classList.remove('squish');void shadow.offsetWidth;shadow.classList.add('squish');const delay=partyMode?(1200+Math.random()*1200):(3000+Math.random()*1200);wanderTimer=setTimeout(wander,delay)}function init(){const{width:W,height:H}=playground.getBoundingClientRect();const r=cake.getBoundingClientRect();const cw=r.width;const ch=r.height;const tx=W*.5+(Math.random()-.5)*W*.2;const ty=H*.5+(Math.random()-.5)*H*.2;cake.style.left=tx+'px';cake.style.top=ty+'px';shadow.style.left=tx+'px';shadow.style.top=(ty+ch*.72)+'px';updateButtons();wander()}function spawnConfetti(x,y,qty=80){const colors=['#ff3d7c','#8a5cff','#ffc93c','#00c2ff','#34d399','#fb923c'];for(let i=0;i<qty;i++){const bit=document.createElement('div');bit.className='bit';bit.style.background=colors[Math.floor(Math.random()*colors.length)];bit.style.left=x+'px';bit.style.top=y+'px';const angle=Math.random()*Math.PI*2;const speed=3+Math.random()*6;const vx=Math.cos(angle)*speed;const vy=Math.sin(angle)*speed-6;const rot=(Math.random()*360)|0;bit.style.transform=`translate(-50%,-50%) rotate(${rot}deg)`;confetti.appendChild(bit);const gravity=0.18+Math.random()*0.12;let life=0;const drift=(Math.random()-.5)*0.6;const timer=setInterval(()=>{life++;const nx=x+vx*life+drift*life*1.2;const ny=y+vy*life+gravity*life*life;bit.style.left=nx+'px';bit.style.top=ny+'px';bit.style.opacity=(120-life)/120;if(life>120){clearInterval(timer);bit.remove()}},16)}}
+    cake.addEventListener('click',e=>{const rect=playground.getBoundingClientRect();spawnConfetti(e.clientX-rect.left,e.clientY-rect.top)});
+    function updateButtons(){partyBtn.disabled=partyMode;calmBtn.disabled=!partyMode;partyBtn.style.opacity=partyMode?1:.6;calmBtn.style.opacity=partyMode?.6:1}
+    partyBtn.addEventListener('click',()=>{partyMode=true;updateButtons();wander()});calmBtn.addEventListener('click',()=>{partyMode=false;updateButtons();wander()});let resizeDebounce;window.addEventListener('resize',()=>{clearTimeout(resizeDebounce);resizeDebounce=setTimeout(()=>{wander()},120)});window.addEventListener('load',init,{once:true});
+  </script>
 </body>
 </html>
